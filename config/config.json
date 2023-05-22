@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "overview-of-applications-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/overviewOfApplications/OverviewOfApplicationsWebPart.js",
+          "manifest": "./src/webparts/overviewOfApplications/OverviewOfApplicationsWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "OverviewOfApplicationsWebPartStrings": "lib/webparts/overviewOfApplications/loc/{locale}.js"
+  }
+}
