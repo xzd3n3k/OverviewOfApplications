@@ -34,6 +34,7 @@ export default class OverviewOfApplications extends React.Component<IOverviewOfA
     return await sp.web.siteUsers.getById(id).get();
   }
 
+  // TODO je zadouci aby se tato data fetchovala pri mountu? a kdy vzdycky se provede mount?
   public componentDidMount() : void {
 
     console.log("MOUNTED");
@@ -47,13 +48,18 @@ export default class OverviewOfApplications extends React.Component<IOverviewOfA
 
         if (item.SpravceId != null) {
           this.getUser(item.SpravceId).then((user) => {
-            this.admin = {name : user.Title, email : user.Email}; this.forceUpdate();
+            this.admin = {name : user.Title, email : user.Email};
 
             if (item.SpravceId == null) {
               this.admin = null;
             }
 
             item.SpravceId = this.admin;
+
+            if (this.listItems.length -1 == this.listItems.indexOf(item)) {
+              this.forceUpdate();
+            }
+
           }).catch((error) => {console.log(error)});
         }
       }
@@ -79,7 +85,7 @@ export default class OverviewOfApplications extends React.Component<IOverviewOfA
               <div>
               {item.NazevDatabaze}
               <br/>
-              {this.showInfo ? <span className={styles.info}><b>Správce databáze</b><br/>{item.SpravceId ? item.SpravceId.name : null}<br/>{item.SpravceId ? item.SpravceId.email : null}<br/><b>Telefon: {item.Telefon}</b></span> : null}
+              {this.showInfo ? <span className={styles.info}><b>Správce databáze</b><br/>{item.SpravceId ? item.SpravceId.name : null}<br/>{item.SpravceId ? item.SpravceId.email : null}<br/><b>Telefon: {item.Telefon ? item.Telefon : null}</b></span> : null}
               </div>
 
             </div>) : "Načítání ..."}
