@@ -34,7 +34,6 @@ export default class OverviewOfApplications extends React.Component<IOverviewOfA
     return await sp.web.siteUsers.getById(id).get();
   }
 
-  // TODO je zadouci aby se tato data fetchovala pri mountu? a kdy vzdycky se provede mount?
   public componentDidMount() : void {
 
     console.log("MOUNTED");
