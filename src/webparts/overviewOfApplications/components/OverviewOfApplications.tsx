@@ -14,7 +14,7 @@ export default class OverviewOfApplications extends React.Component<IOverviewOfA
   loaded : boolean = false;
   listName : string = "Přehled aplikací intranetu FN Brno";
   listItems : any[] = [];
-  adminID : any;
+  listItemsFiltered : any[] = [];
   admin : {};
   
   private async fetchSP() : Promise<any> {
@@ -34,11 +34,25 @@ export default class OverviewOfApplications extends React.Component<IOverviewOfA
     return await sp.web.siteUsers.getById(id).get();
   }
 
+  private filterList(list : any[], searchString : string) {
+
+    this.listItemsFiltered = [];
+
+    list.forEach(item => {
+      if (item.NazevDatabaze.toLowerCase().includes(searchString.toLowerCase())) {
+        this.listItemsFiltered.push(item);
+      }
+    });
+
+    this.forceUpdate();
+  }
+
   public componentDidMount() : void {
 
     console.log("MOUNTED");
 
     this.fetchSP().then((response) => {
+
       this.listItems = response;
       this.loaded = true;
       this.forceUpdate();
@@ -74,9 +88,11 @@ export default class OverviewOfApplications extends React.Component<IOverviewOfA
 
         <div className={styles.layout}>
 
+          <input type='text' name='searchValue' id='serachValue' placeholder='Hledat aplikaci ...' onInput={(event) => {this.filterList(this.listItems, event.currentTarget.value)}}></input>
+
           <Toggle onText="Skrýt správce databáze" offText="Zobrazit správce databáze" onChange={() => {this.showInfo = !this.showInfo; this.forceUpdate()}} defaultChecked={false}></Toggle>
           
-          {this.loaded ? this.listItems.map((item) => 
+          {this.loaded ? this.listItemsFiltered.map((item) => 
             <div onClick={() => {window.open(item.Odkaz.Url, "_blank")}} className={styles.apps}>
 
               <img src={JSON.parse(item.Ikona).serverUrl + JSON.parse(item.Ikona).serverRelativeUrl} width="25px" height="25px"/>
@@ -93,3 +109,5 @@ export default class OverviewOfApplications extends React.Component<IOverviewOfA
     );
   }
 }
+
+// TODO - space between img and text
