@@ -55,6 +55,9 @@ export default class OverviewOfApplications extends React.Component<IOverviewOfA
 
       this.listItems = response;
       this.loaded = true;
+
+      this.filterList(this.listItems, '');
+
       this.forceUpdate();
 
       for (const item of this.listItems) {
