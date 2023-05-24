@@ -112,5 +112,3 @@ export default class OverviewOfApplications extends React.Component<IOverviewOfA
     );
   }
 }
-
-// TODO - space between img and text
