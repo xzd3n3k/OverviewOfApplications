@@ -94,7 +94,7 @@ export default class OverviewOfApplications extends React.Component<IOverviewOfA
           <input type='text' name='searchValue' id='serachValue' placeholder='Hledat aplikaci ...' onInput={(event) => {this.filterList(this.listItems, event.currentTarget.value)}}></input>
 
           <Toggle onText="Skrýt správce databáze" offText="Zobrazit správce databáze" onChange={() => {this.showInfo = !this.showInfo; this.forceUpdate()}} defaultChecked={false}></Toggle>
-          <div className={styles.appOverview}>
+          <div className={styles.layout + ' ' + styles.appOverviewScroll}>
             {this.loaded ? this.listItemsFiltered.map((item) => 
               <div onClick={() => {window.open(item.Odkaz.Url, "_blank")}} className={styles.apps}>
 
@@ -115,4 +115,3 @@ export default class OverviewOfApplications extends React.Component<IOverviewOfA
 }
 
 // TODO props edit height
-// TODO split up app overview scss
