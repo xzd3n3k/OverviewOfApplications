@@ -94,21 +94,25 @@ export default class OverviewOfApplications extends React.Component<IOverviewOfA
           <input type='text' name='searchValue' id='serachValue' placeholder='Hledat aplikaci ...' onInput={(event) => {this.filterList(this.listItems, event.currentTarget.value)}}></input>
 
           <Toggle onText="Skrýt správce databáze" offText="Zobrazit správce databáze" onChange={() => {this.showInfo = !this.showInfo; this.forceUpdate()}} defaultChecked={false}></Toggle>
-          
-          {this.loaded ? this.listItemsFiltered.map((item) => 
-            <div onClick={() => {window.open(item.Odkaz.Url, "_blank")}} className={styles.apps}>
+          <div className={styles.appOverview}>
+            {this.loaded ? this.listItemsFiltered.map((item) => 
+              <div onClick={() => {window.open(item.Odkaz.Url, "_blank")}} className={styles.apps}>
 
-              <img src={JSON.parse(item.Ikona).serverUrl + JSON.parse(item.Ikona).serverRelativeUrl} width="25px" height="25px"/>
+                <img src={JSON.parse(item.Ikona).serverUrl + JSON.parse(item.Ikona).serverRelativeUrl} width="25px" height="25px"/>
 
-              <div>
-              {item.NazevDatabaze}
-              <br/>
-              {this.showInfo ? <span className={styles.info}><b>Správce databáze</b><br/>{item.SpravceId ? item.SpravceId.name : null}<br/>{item.SpravceId ? item.SpravceId.email : null}<br/><b>Telefon: {item.Telefon ? item.Telefon : null}</b></span> : null}
-              </div>
+                <div>
+                {item.NazevDatabaze}
+                <br/>
+                {this.showInfo ? <span className={styles.info}><b>Správce databáze</b><br/>{item.SpravceId ? item.SpravceId.name : null}<br/>{item.SpravceId ? item.SpravceId.email : null}<br/><b>Telefon: {item.Telefon ? item.Telefon : null}</b></span> : null}
+                </div>
 
-            </div>) : "Načítání ..."}
+              </div>) : "Načítání ..."}
+            </div>
         </div>
       </div>
     );
   }
 }
+
+// TODO props edit height
+// TODO split up app overview scss

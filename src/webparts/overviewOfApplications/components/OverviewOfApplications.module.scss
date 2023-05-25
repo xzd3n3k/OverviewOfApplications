@@ -5,6 +5,7 @@
   padding: 1em;
   color: "[theme:bodyText, default: #323130]";
   color: var(--bodyText);
+  background: transparent;
   &.teams {
     font-family: $ms-font-family-fallbacks;
   }
@@ -74,4 +75,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.appOverview {
+  overflow-y: scroll;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
 }
