@@ -83,7 +83,7 @@ export default class OverviewOfApplications extends React.Component<IOverviewOfA
   }
 
   public render(): React.ReactElement<IOverviewOfApplicationsProps> {
-    const {} = this.props;
+    const {numberValue} = this.props;
     console.log("RENDERED");
 
     return (
@@ -94,7 +94,8 @@ export default class OverviewOfApplications extends React.Component<IOverviewOfA
           <input type='text' name='searchValue' id='serachValue' placeholder='Hledat aplikaci ...' onInput={(event) => {this.filterList(this.listItems, event.currentTarget.value)}}></input>
 
           <Toggle onText="Skrýt správce databáze" offText="Zobrazit správce databáze" onChange={() => {this.showInfo = !this.showInfo; this.forceUpdate()}} defaultChecked={false}></Toggle>
-          <div className={styles.layout + ' ' + styles.appOverviewScroll}>
+          {/* <div className={styles.layout + ' ' + styles.appOverviewScroll}> */}
+          <div className={styles.layout} style={{overflowY : 'scroll', height: numberValue + 'vh'}}>
             {this.loaded ? this.listItemsFiltered.map((item) => 
               <div onClick={() => {window.open(item.Odkaz.Url, "_blank")}} className={styles.apps}>
 

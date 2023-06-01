@@ -3,17 +3,17 @@ import * as ReactDom from 'react-dom';
 import { Version } from '@microsoft/sp-core-library';
 import {
   IPropertyPaneConfiguration,
-  PropertyPaneTextField
+  PropertyPaneSlider,
+  IPropertyPaneSliderProps
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
-
 import * as strings from 'OverviewOfApplicationsWebPartStrings';
 import OverviewOfApplications from './components/OverviewOfApplications';
 import { IOverviewOfApplicationsProps } from './components/IOverviewOfApplicationsProps';
 
 export interface IOverviewOfApplicationsWebPartProps {
-  description: string;
+  numberValue : number;
 }
 
 export default class OverviewOfApplicationsWebPart extends BaseClientSideWebPart<IOverviewOfApplicationsWebPartProps> {
@@ -25,11 +25,11 @@ export default class OverviewOfApplicationsWebPart extends BaseClientSideWebPart
     const element: React.ReactElement<IOverviewOfApplicationsProps> = React.createElement(
       OverviewOfApplications,
       {
-        description: this.properties.description,
         isDarkTheme: this._isDarkTheme,
         environmentMessage: this._environmentMessage,
         hasTeamsContext: !!this.context.sdks.microsoftTeams,
-        userDisplayName: this.context.pageContext.user.displayName
+        userDisplayName: this.context.pageContext.user.displayName,
+        numberValue: this.properties.numberValue,
       }
     );
 
@@ -100,17 +100,19 @@ export default class OverviewOfApplicationsWebPart extends BaseClientSideWebPart
     return {
       pages: [
         {
-          header: {
-            description: strings.PropertyPaneDescription
-          },
           groups: [
             {
-              groupName: strings.BasicGroupName,
+              groupName: 'Settings',
               groupFields: [
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
-                })
-              ]
+                PropertyPaneSlider('numberValue', {
+                  label: 'Width',
+                  min: 0,
+                  max: 100,
+                  step: 1,
+                  showValue: true,
+                  defaultValue: 85,
+                } as IPropertyPaneSliderProps),
+              ],
             }
           ]
         }
