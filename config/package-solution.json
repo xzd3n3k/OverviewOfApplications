@@ -35,6 +35,6 @@
     ]
   },
   "paths": {
-    "zippedPackage": "solution/overview-of-applications.sppkg"
+    "zippedPackage": "solution/webpart.sppkg"
   }
 }
